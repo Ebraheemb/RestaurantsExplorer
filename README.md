@@ -11,7 +11,8 @@ Android application that diplay restaurants in a specific city using *Zomato API
   > ***The application built with MVVM architecture pattern. (Using Android Architecture Components).
 <br> Repository Pattern, to abstract the source of data in the application.
 <br> Using of View Model, Live Data and databinding.
-<br> The Application utilizes such popular libraries as: [RxJava](https://github.com/ReactiveX/RxJava), [Dagger2](https://github.com/google/dagger), [OkHttp](https://github.com/square/okhttp), [Retrofit](https://github.com/square/retrofit), [Glide](https://github.com/bumptech/glide), [Google maps](https://developers.google.com/maps/documentation/android-sdk/intro).***
+<br> The Application utilizes such popular libraries as: [RxJava](https://github.com/ReactiveX/RxJava), [Dagger2](https://github.com/google/dagger), [OkHttp](https://github.com/square/okhttp), [Retrofit](https://github.com/square/retrofit), [Glide](https://github.com/bumptech/glide), [Google maps](https://developers.google.com/maps/documentation/android-sdk/intro).
+<Br>Written in [Kotlin](https://kotlinlang.org/).***
   
 
   
