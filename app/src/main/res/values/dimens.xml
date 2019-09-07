@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<resources>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
+    <dimen name="grid_search_city_item_margin">4dp</dimen>
+    <dimen name="search_fragment_card_height">60dp</dimen>
+    <dimen name="search_fragment_card_half_of_height">30dp</dimen>
+</resources>

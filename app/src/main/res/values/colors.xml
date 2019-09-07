@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2fe581</color>
+    <color name="colorPrimaryDark">#20c787</color>
+    <color name="colorAccent">#eb0208</color>
+
+    <color name="background_star_color">#AAAAAA</color>
+    <color name="filled_rating_stars_color">#ffbf0f</color>
+    <color name="white">#ffffff</color>
+    <color name="navigation_bottom_item_color_selected">#2fe581</color>
+    <color name="navigation_bottom_item_color_unselected">#333333</color>
+    <color name="card_stroke_gray">#ECECEC</color>
+    <color name="black">#000000</color>
+</resources>

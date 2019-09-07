@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Restaurants</string>
+    <string name="title_activity_maps">Map</string>
+
+
+    <string name="app_font_regular">fonts/openSans/Regular.ttf</string>
+    <string name="app_font_bold">fonts/openSans/Bold.ttf</string>
+    <string name="app_font_extra_bold">fonts/openSans/ExtraBold.ttf</string>
+    <string name="app_font_semi_bold">fonts/openSans/SemiBold.ttf</string>
+    <string name="app_font_light">fonts/openSans/Light.ttf</string>
+    <string name="selected_city_name_transition_name">city name</string>
+    <string name="selected_city_country_flag_transition_name">country flag</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="start_explore_best_restaurants_around_the_world">Start explore best restaurants around the world..</string>
+    <string name="votes_number">(%d)</string>
+    <string name="top_cuisines">Top cuisines</string>
+    <string name="most_rated_restaurants">Most rated restaurants</string>
+    <string name="toobar_city_name">%s, %s</string>
+    <string name="button_more_info">More info</string>
+    <string name="restaurant_cuisines">Cuisines</string>
+    <string name="restaurant_photos">Photos</string>
+    <string name="restaurant_reviews_section_title">Reviews</string>
+</resources>

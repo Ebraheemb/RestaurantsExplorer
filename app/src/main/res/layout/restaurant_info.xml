@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="16dp"
+        tools:layout_editor_absoluteX="8dp">
+
+
+        <TextView
+            android:id="@+id/restaurantNameTextView"
+            fontPath="@string/app_font_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="100dp"
+            android:layout_marginStart="8dp"
+            tools:text="Grandiadius Kitchen"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/cardView"
+            app:layout_constraintStart_toEndOf="@+id/cardView"
+            app:layout_constraintTop_toTopOf="@+id/cardView"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            android:id="@+id/votesNumberTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/votes_number"
+            android:minWidth="36dp"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/materialRatingBar"
+            app:layout_constraintStart_toEndOf="@+id/materialRatingBar"
+            app:layout_constraintTop_toTopOf="@+id/materialRatingBar" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardCornerRadius="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_shop"
+                android:tint="@android:color/white" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+            android:id="@+id/materialRatingBar"
+            style="@style/MyRatingBarTheme"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="0dp"
+            android:numStars="5"
+            android:stepSize="0.5"
+            app:layout_constraintStart_toStartOf="@+id/restaurantNameTextView"
+            app:layout_constraintTop_toBottomOf="@+id/restaurantNameTextView"
+            app:mrb_fillBackgroundStars="@color/background_star_color"
+            app:mrb_indeterminateTint="@color/filled_rating_stars_color"
+            app:mrb_progressBackgroundTint="@color/background_star_color"
+            app:mrb_progressBackgroundTintMode="src_in"
+            app:mrb_progressTint="@color/filled_rating_stars_color" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+

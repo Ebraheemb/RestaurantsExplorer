@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="200dp"
+    android:layout_height="112.5dp"
+    android:layout_margin="8dp"
+    android:elevation="3dp"
+    android:orientation="vertical"
+    app:cardBackgroundColor="#E2E2E2"
+    app:cardCornerRadius="8dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/featureImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="@drawable/gradient_black_trasparent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="4dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/resNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fontPath="@sting/app_font_semi_bold"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                tools:text="name"
+                tools:ignore="MissingPrefix" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/MyRatingBarTheme"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:numStars="5"
+                    android:stepSize="0.5"
+                    app:mrb_fillBackgroundStars="@color/background_star_color"
+                    app:mrb_indeterminateTint="@color/filled_rating_stars_color"
+                    app:mrb_progressBackgroundTint="@color/background_star_color"
+                    app:mrb_progressBackgroundTintMode="src_in"
+                    app:mrb_progressTint="@color/filled_rating_stars_color" />
+
+                <TextView
+                    android:id="@+id/votesNumberTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/votes_number"
+                    android:minWidth="36dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/materialRatingBar"
+                    app:layout_constraintStart_toEndOf="@+id/materialRatingBar"
+                    app:layout_constraintTop_toTopOf="@+id/materialRatingBar" />
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
