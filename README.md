@@ -1,10 +1,10 @@
 # Restaurant Explorer application
 
-Android application that diplay restaurants in a specific city using *Zomato API*.
+Android application that diplays restaurants in a specific city using *Zomato API*.
 
   - Support search for a specific city around the world.
   - Displaying restaurants on a google map.
-  - Restaurant detail screen: that display rating, photos, reviews, top cuisines and more info about the restaurant.
+  - Restaurant detail screen: that displays rating, photos, reviews, top cuisines and more info about the restaurant.
   
   ## MVVM-based application
   
@@ -20,10 +20,10 @@ Android application that diplay restaurants in a specific city using *Zomato API
 
 | Screen description | screenshot\s                    |
 | ------------- | ------------------------------ |
-| The *initial screen* that shown in *first start* of the app    | <img src="screenshots/screen1.png" width="200px" height="355.5"><img src="screenshots/screen9.png" width="200px" height="355.5"><img src="screenshots/screen10.png" width="200px" height="355.5">  |
+| The *initial screen* that shown in *first start* of the app    | <img src="screenshots/screen1.png" width="200px" height="355.5">  |
 | *Search screen* (to search and select city arround the world   | <img src="screenshots/screen2.png" width="200px" height="355.5"><img src="screenshots/screen3.png" width="200px" height="355.5">   |
-| *The home page* (display restaurants in the city)   | <img src="screenshots/screen4.png" width="200px" height="355.5">   |
-| *The city map* (display markers in the map that represent a restaurant)   | <img src="screenshots/screen5.png" width="200px" height="355.5">   |
+| *The home page* (display restaurants in the city)   | <img src="screenshots/screen4.png" width="200px" height="355.5"><img src="screenshots/screen9.png" width="200px" height="355.5"><img src="screenshots/screen10.png" width="200px" height="355.5">   |
+| *The city map* (displays markers in the map that represent a restaurant)   | <img src="screenshots/screen5.png" width="200px" height="355.5">   |
 | Bottom sheet dialog that show info about restaurant after click on a marker | <img src="screenshots/screen6.png" width="200px" height="355.5">  |
 | *Restaurant details screen* | <img src="screenshots/screen7.png" width="200px" height="355.5"><img src="screenshots/screen8.png" width="200px" height="355.5">  |
 | *Use case* | ![](screenshots/giphy.gif)  |
