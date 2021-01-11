@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/home_toolbar_gradinet"
     android:orientation="vertical"
+    tools:viewBindingIgnore="true"
     android:theme="@style/TransparentTheme">
 
 

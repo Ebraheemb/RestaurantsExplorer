@@ -169,6 +169,7 @@
         android:checkable="true"
         android:clickable="true"
         android:focusable="true"
+        tools:viewBindingIgnore="true"
         app:cardBackgroundColor="#21966d"
         app:cardCornerRadius="20dp">
 

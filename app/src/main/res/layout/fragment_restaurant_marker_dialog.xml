@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:clipToPadding="false"
     android:paddingTop="24dp"
+    tools:viewBindingIgnore="true"
     android:paddingBottom="24dp"
     tools:context=".ui.main.fragments.home.restaurant_marker_bottom_sheet_dialog.RestaurantMarkerDialogFragment">
 
