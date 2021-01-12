@@ -1,14 +1,16 @@
 package me.ebraheem.restaurants.data.network
 
+import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import me.ebraheem.restaurants.App
 import me.ebraheem.restaurants.common.Constants
-import me.ebraheem.restaurants.di.AppModule
-import me.ebraheem.restaurants.di.AppScope
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -18,30 +20,25 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
+import javax.inject.Singleton
 
-
-@Module(includes = [AppModule::class])
+@InstallIn(ApplicationComponent::class)
+@Module
 class NetworkModule {
-
-
-    @Provides
-    fun provideGson(): Gson = GsonBuilder()
-        .setLenient()
-        .create()
 
     @Provides
     fun provideCache(cacheFile: File): Cache = Cache(cacheFile, Constants.OKHTTP_CACHE_DIR_SIZE)
 
     @Provides
-    fun provideHttpCacheFile(app: App): File {
-        val directory = File(app.cacheDir.toString() + File.separator + Constants.OKHTTP_CACHE_DIR_NAME)
+    fun provideHttpCacheFile(@ApplicationContext context: Context): File {
+        val directory = File(context.cacheDir.toString() + File.separator + Constants.OKHTTP_CACHE_DIR_NAME)
         if (!directory.exists())
             directory.mkdirs()
         return directory
 
     }
 
-    @AppScope
+    @Singleton
     @Provides
     fun provideOkHttpClient(cache: Cache, @Named("AuthInterceptor") authInterceptor: Interceptor, @Named("ChuckInterceptor") chuckInterceptor: Interceptor): OkHttpClient =
         OkHttpClient.Builder()
@@ -61,12 +58,13 @@ class NetworkModule {
 
     @Provides
     @Named("ChuckInterceptor")
-    fun provideChuckInterceptor(app: App): Interceptor =
-        ChuckInterceptor(app.applicationContext)
+    fun provideChuckInterceptor(@ApplicationContext context: Context): Interceptor =
+        ChuckInterceptor(context)
 
     @Provides
     fun RxJava2CallAdapterFactory() = RxJava2CallAdapterFactory.create()
 
+    @Singleton
     @Provides
     fun getClient(
         okHttpClient: OkHttpClient,
@@ -81,7 +79,7 @@ class NetworkModule {
             .build()
 
 
-    @AppScope
+    @Singleton
     @Provides
     fun provideApiService(retrofit: Retrofit): Routes = retrofit.create(Routes::class.java)
 }

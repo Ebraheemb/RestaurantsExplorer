@@ -5,17 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.fragment_search.*
-import me.ebraheem.restaurants.GlideApp
-
 import me.ebraheem.restaurants.R
 import me.ebraheem.restaurants.common.Constants
 import me.ebraheem.restaurants.data.model.City
 import me.ebraheem.restaurants.data.preferences.AppSharedPreferences
 import me.ebraheem.restaurants.ui.main.fragments.HomeBaseFragment
 
+@AndroidEntryPoint
 class SearchFragment : HomeBaseFragment() {
 
 
@@ -30,7 +31,7 @@ class SearchFragment : HomeBaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        GlideApp.with(this).load(R.drawable.rest_feature)
+        Glide.with(this).load(R.drawable.rest_feature)
             .apply(RequestOptions.bitmapTransform(BlurTransformation(8, 2)))
             .into(imageView)
 

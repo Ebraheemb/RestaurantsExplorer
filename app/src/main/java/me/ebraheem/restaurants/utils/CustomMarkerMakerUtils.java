@@ -12,12 +12,13 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import me.ebraheem.restaurants.GlideApp;
 import me.ebraheem.restaurants.R;
 
 public class CustomMarkerMakerUtils {
@@ -32,7 +33,7 @@ public class CustomMarkerMakerUtils {
         final View view = getMakerView(context);
         final CircleImageView img = (CircleImageView) view.findViewById(R.id.img);
         int withHeightPexils = ScreenUtils.dpToPx(context,50);
-        GlideApp.with(context).setDefaultRequestOptions(new RequestOptions().centerCropTransform()).asBitmap().load(url).into(new SimpleTarget<Bitmap>(withHeightPexils,withHeightPexils) {
+        Glide.with(context).setDefaultRequestOptions(new RequestOptions().centerCropTransform()).asBitmap().load(url).into(new SimpleTarget<Bitmap>(withHeightPexils,withHeightPexils) {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
 

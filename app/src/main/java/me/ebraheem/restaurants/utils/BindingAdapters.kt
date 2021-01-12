@@ -1,4 +1,4 @@
-package ebraheem.tmdb.movies.utils
+package me.ebraheem.restaurants.utils
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -6,7 +6,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.restaurant_info.*
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
 
 

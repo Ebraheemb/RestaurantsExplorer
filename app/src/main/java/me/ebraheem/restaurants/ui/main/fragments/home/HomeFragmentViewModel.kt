@@ -1,5 +1,6 @@
 package me.ebraheem.restaurants.ui.main.fragments.home
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import me.ebraheem.restaurants.data.DataRepository
 import me.ebraheem.restaurants.data.model.HomePageData
@@ -8,7 +9,7 @@ import me.ebraheem.restaurants.helpers.plus
 import me.ebraheem.restaurants.ui.base.BaseViewModel
 import javax.inject.Inject
 
-class HomeFragmentViewModel @Inject constructor(private var dataRepository: DataRepository) :
+class HomeFragmentViewModel @ViewModelInject constructor(private var dataRepository: DataRepository) :
     BaseViewModel() {
 
 

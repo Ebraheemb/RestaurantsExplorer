@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.CallSuper
 import androidx.lifecycle.Observer
+import dagger.hilt.android.AndroidEntryPoint
 import me.ebraheem.restaurants.R
 import me.ebraheem.restaurants.data.model.City
 import me.ebraheem.restaurants.data.preferences.AppSharedPreferences
@@ -21,9 +22,7 @@ import me.ebraheem.restaurants.ui.main.fragments.search.SearchFragment
 import me.ebraheem.restaurants.ui.search_city.SearchCityActivity
 import javax.inject.Inject
 
-/**
- * A simple [Fragment] subclass.
- */
+
 open class HomeBaseFragment : BaseFragment() {
 
 
@@ -63,7 +62,7 @@ open class HomeBaseFragment : BaseFragment() {
 
 
     protected fun searchForCity() {
-        SearchCityActivity.getNewIntent(context as Activity).also {
+        SearchCityActivity.getNewIntent(requireActivity()).also {
             startActivityForResult(it, RQ_SELECT_CITY)
         }
     }

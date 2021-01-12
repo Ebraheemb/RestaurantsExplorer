@@ -5,29 +5,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_restaurant_marker_dialog.*
 import kotlinx.android.synthetic.main.fragment_restaurant_marker_dialog.view.*
 import kotlinx.android.synthetic.main.item_bottom_sheet_restaurant_info.*
-import kotlinx.android.synthetic.main.item_bottom_sheet_restaurant_info.votesNumberTextView
 import me.ebraheem.restaurants.R
 import me.ebraheem.restaurants.data.model.Restaurant
 import me.ebraheem.restaurants.helpers.hide
 import me.ebraheem.restaurants.helpers.loadImage
 import me.ebraheem.restaurants.helpers.show
-import me.ebraheem.restaurants.viewmodels.ViewModelProviderFactory
-import me.ebraheem.restaurants.widget.DaggerBottomSheetDialogFragment
-import javax.inject.Inject
 
 
 const val ARG_RESTAURANT_ID = "restaurant_id"
 
-class RestaurantMarkerDialogFragment : DaggerBottomSheetDialogFragment() {
+@AndroidEntryPoint
+class RestaurantMarkerDialogFragment : BottomSheetDialogFragment() {
 
     private var restaurantId: String? = null
-    @Inject
-    lateinit var providerFactory: ViewModelProviderFactory
+
+    val viewModel : RestaurantMarkerBottomSheetDialogViewModel by viewModels()
+
     private var mRestaurantMarkerInfoDialogListener: RestaurantMarkerInfoDialogListener? = null
 
     override fun onCreateView(
@@ -39,8 +39,7 @@ class RestaurantMarkerDialogFragment : DaggerBottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        restaurantId = arguments!!.getString(ARG_RESTAURANT_ID)
-        var viewModel = ViewModelProviders.of(this,providerFactory).get(RestaurantMarkerBottomSheetDialogViewModel::class.java)
+        restaurantId = requireArguments().getString(ARG_RESTAURANT_ID)
         viewModel.restaurantLiveData.observe(this, Observer {
             bindView(it)
         })
