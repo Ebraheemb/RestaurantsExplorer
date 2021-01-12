@@ -22,8 +22,8 @@ class RestaurantViewHolder(itemView: View) : BaseViewHolder(itemView) {
 
     init {
         itemView.setOnClickListener {view ->
-            restaurant!!.id?.let { restaurantId ->
-                RestaurantsActivity.getNewIntent(itemView.context as AppCompatActivity, restaurantId).also {
+            restaurant?.id?.let { restaurantId ->
+                RestaurantsActivity.getNewIntent(itemView.context, restaurantId).also {
                     view.context.startActivity(it)
                 }
             }
@@ -33,10 +33,10 @@ class RestaurantViewHolder(itemView: View) : BaseViewHolder(itemView) {
     fun bind(restaurant: Restaurant) {
         this.restaurant = restaurant
 
-        featureImageView.loadImage(restaurant!!.featuredImage)
-        resNameTextView.text = restaurant!!.name
-        ratingBar.rating = restaurant!!.userRating!!.aggregateRating!!.toFloat()
-        votesNumberTextView.text = itemView.context.getString(R.string.votes_number).format(restaurant!!.userRating!!.votes!!.toInt())
+        featureImageView.loadImage(restaurant.featuredImage)
+        resNameTextView.text = restaurant.name
+        ratingBar.rating = restaurant.userRating?.aggregateRating?.toFloat() ?: 0.0f
+        votesNumberTextView.text = itemView.context.getString(R.string.votes_number).format(restaurant.userRating?.votes?.toInt())
 
 
     }

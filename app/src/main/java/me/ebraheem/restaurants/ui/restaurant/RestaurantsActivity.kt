@@ -1,5 +1,6 @@
 package me.ebraheem.restaurants.ui.restaurant
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -131,5 +132,8 @@ class RestaurantsActivity : BaseActivity() {
                 restaurantId
             )
 
+        fun getNewIntent(context: Context, restaurantId: String): Intent =
+            Intent(context, RestaurantsActivity::class.java)
+                .putExtra(EXTRA_RESTAURANT_ID, restaurantId)
     }
 }
