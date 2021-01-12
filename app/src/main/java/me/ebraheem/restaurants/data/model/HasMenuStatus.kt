@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class HasMenuStatus(
 
     @field:SerializedName("delivery")
-    var delivery: Long = 0,
+    var delivery: Boolean = false,
     @field:SerializedName("takeaway")
     var takeaway: Long = 0
 )
