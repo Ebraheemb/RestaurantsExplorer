@@ -28,7 +28,6 @@ data class ResReview(var review : ReviewWrapper) : RestaurantInfoAdapterData(TYP
 
 class RestaurantInfoAdapter(var dataList: MutableList<RestaurantInfoAdapterData>) : RecyclerView.Adapter<BaseViewHolder>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder =
         when (viewType) {
             TYPE_PHOTOS -> BasicViewHolderHorizontalRecyclerAndBoldTitle.createViewHolder(parent)

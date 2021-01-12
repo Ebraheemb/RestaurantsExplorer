@@ -12,7 +12,12 @@ class RestaurantReviewViewHolder(var binding: ItemRestaurantReviewBinding) : Bas
 
     fun bind(reviewWrapper : ReviewWrapper) {
 
-       // binding.review = reviewWrapper.review[0]
+        reviewWrapper.review?.let {
+            if (it.isNotEmpty()){
+                binding.review = it[0]
+            }
+        }
+
     }
 
     companion object {

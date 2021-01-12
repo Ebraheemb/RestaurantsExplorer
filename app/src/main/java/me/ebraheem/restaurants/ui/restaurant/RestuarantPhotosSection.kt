@@ -14,10 +14,8 @@ import me.ebraheem.restaurants.ui.base.BaseViewHolder
 
 class RestuarantPhotosAdapter(var list: List<PhotoWrapper>) : RecyclerView.Adapter<RestaurantPhotoItemVH>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantPhotoItemVH =
         RestaurantPhotoItemVH.createViewHolder(parent)
-
 
     override fun getItemCount(): Int = list.size
 
