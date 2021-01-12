@@ -7,6 +7,7 @@
     android:layout_margin="8dp"
     android:elevation="3dp"
     android:orientation="vertical"
+    tools:viewBindingIgnore="true"
     app:cardBackgroundColor="#E2E2E2"
     app:cardCornerRadius="8dp">
 

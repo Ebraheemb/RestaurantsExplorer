@@ -1,6 +1,7 @@
 package me.ebraheem.restaurants.ui.search_city
 
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import me.ebraheem.restaurants.data.DataRepository
 import me.ebraheem.restaurants.data.model.City
@@ -9,7 +10,7 @@ import me.ebraheem.restaurants.ui.base.BaseViewModel
 
 import javax.inject.Inject
 
-class SearchCityViewModel @Inject constructor(private var dataRepository: DataRepository) : BaseViewModel() {
+class SearchCityViewModel @ViewModelInject constructor(private var dataRepository: DataRepository) : BaseViewModel() {
 
 
     var citiesListLiveData: MutableLiveData<List<City>> = MutableLiveData()

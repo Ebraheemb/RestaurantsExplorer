@@ -4,6 +4,8 @@
     android:layout_width="220dp"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
+    tools:viewBindingIgnore="true"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView

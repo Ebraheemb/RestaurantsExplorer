@@ -6,6 +6,7 @@
     android:layout_height="30dp"
     android:layout_margin="4dp"
     android:orientation="vertical"
+    tools:viewBindingIgnore="true"
     app:cardBackgroundColor="@color/colorPrimaryDark"
     app:cardCornerRadius="15dp">
 

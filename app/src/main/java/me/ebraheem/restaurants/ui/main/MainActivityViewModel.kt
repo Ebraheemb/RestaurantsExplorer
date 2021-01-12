@@ -1,6 +1,7 @@
 package me.ebraheem.restaurants.ui.main
 
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -13,7 +14,7 @@ import me.ebraheem.restaurants.ui.base.BaseViewModel
 import javax.inject.Inject
 
 
-class MainActivityViewModel @Inject constructor(private var dataRepository: DataRepository) :
+class MainActivityViewModel @ViewModelInject constructor(private var dataRepository: DataRepository) :
     BaseViewModel() {
 
 

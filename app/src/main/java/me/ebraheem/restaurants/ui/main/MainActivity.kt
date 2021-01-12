@@ -2,10 +2,11 @@ package me.ebraheem.restaurants.ui.main
 
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import me.ebraheem.restaurants.R
 import me.ebraheem.restaurants.data.model.City
@@ -18,24 +19,20 @@ import me.ebraheem.restaurants.ui.main.fragments.favorites.FavoritesFragment
 import me.ebraheem.restaurants.ui.main.fragments.home.HomeFragment
 import me.ebraheem.restaurants.ui.main.fragments.search.SearchFragment
 import me.ebraheem.restaurants.ui.main.fragments.user.UserFragment
-import me.ebraheem.restaurants.viewmodels.ViewModelProviderFactory
 import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity(), MainActivityDelegate {
 
-
-    @Inject
-    lateinit var providerFactory: ViewModelProviderFactory
     @Inject
     lateinit var prefs: AppSharedPreferences
-    private lateinit var viewModel: MainActivityViewModel
+    private val viewModel: MainActivityViewModel by viewModels()
     private var selectedCity: City? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewModel = ViewModelProviders.of(this, providerFactory).get(MainActivityViewModel::class.java)
 
         selectedCity = prefs.getSelectedCity()
         setupBottomNavigation()

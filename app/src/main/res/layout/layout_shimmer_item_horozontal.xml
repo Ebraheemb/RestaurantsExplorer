@@ -6,6 +6,8 @@
         android:layout_height="112.5dp"
         app:cardCornerRadius="8dp"
         android:layout_margin="8dp"
+        tools:viewBindingIgnore="true"
+        xmlns:tools="http://schemas.android.com/tools"
         android:background="#d3d3d3">
 
         <androidx.constraintlayout.widget.ConstraintLayout

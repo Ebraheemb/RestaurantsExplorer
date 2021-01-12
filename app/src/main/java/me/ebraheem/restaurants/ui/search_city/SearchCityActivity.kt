@@ -3,19 +3,17 @@ package me.ebraheem.restaurants.ui.search_city
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.jakewharton.rxbinding3.widget.textChanges
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import me.ebraheem.restaurants.R
 import me.ebraheem.restaurants.data.model.City
 import me.ebraheem.restaurants.ui.base.BaseActivity
-import me.ebraheem.restaurants.viewmodels.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_search_city.*
-import me.ebraheem.restaurants.common.Constants
 import me.ebraheem.restaurants.data.preferences.AppSharedPreferences
 import me.ebraheem.restaurants.helpers.GridCitiesItemDecoration
 import me.ebraheem.restaurants.helpers.hide
@@ -26,16 +24,13 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class SearchCityActivity : BaseActivity(), OnCityClickListener, CityDetailsDialogFragment.Listener {
-
-
-    @Inject
-    lateinit var providerFactory: ViewModelProviderFactory
 
     @Inject
     lateinit var prefs: AppSharedPreferences
 
-    private lateinit var viewModel: SearchCityViewModel
+    private val viewModel: SearchCityViewModel by viewModels()
     private lateinit var citiesAdapter: SearchCityAdapter
     private var currentSearchQuery: String? = null
     var compositeDisposable: CompositeDisposable = CompositeDisposable()
@@ -45,10 +40,6 @@ class SearchCityActivity : BaseActivity(), OnCityClickListener, CityDetailsDialo
         setContentView(R.layout.activity_search_city)
         setFinishOnTouchOutside(true)
 
-
-
-
-        viewModel = ViewModelProviders.of(this, providerFactory).get(SearchCityViewModel::class.java)
         viewModel.citiesListLiveData.observe(this, CityListObserver())
         viewModel.loadingDataLiveData.observe(this, LoadingObserver())
 

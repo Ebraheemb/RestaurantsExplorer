@@ -4,8 +4,10 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_restaurants.*
 import kotlinx.android.synthetic.main.layout_shimmer_loading_page.*
 import kotlinx.android.synthetic.main.activity_restaurants.res_info_shimmer_layout as resInfoShimmerLayout
@@ -16,16 +18,13 @@ import me.ebraheem.restaurants.helpers.hide
 import me.ebraheem.restaurants.helpers.loadImage
 import me.ebraheem.restaurants.helpers.show
 import me.ebraheem.restaurants.ui.base.BaseActivity
-import me.ebraheem.restaurants.viewmodels.ViewModelProviderFactory
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class RestaurantsActivity : BaseActivity() {
 
 
-    @Inject
-    lateinit var providerFactory: ViewModelProviderFactory
-    private lateinit var viewModel: RestaurantActivityViewModel
+    private val viewModel: RestaurantActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,14 +32,13 @@ class RestaurantsActivity : BaseActivity() {
 
         initToolbar()
 
-        viewModel = ViewModelProviders.of(this, providerFactory).get(RestaurantActivityViewModel::class.java)
         viewModel.loadingDataLiveData.observe(this, LoadingLiveDataObserver())
         viewModel.restaurantLiveData.observe(this, RestaurantLiveDataObserver())
 
 
-        var resId = intent!!.getStringExtra(EXTRA_RESTAURANT_ID)
-        viewModel.loadRestaurant(resId)
-
+        intent.getStringExtra(EXTRA_RESTAURANT_ID)?.let { resId ->
+            viewModel.loadRestaurant(resId)
+        }
 
         backButton.setOnClickListener {
             onBackPressed()
@@ -76,7 +74,8 @@ class RestaurantsActivity : BaseActivity() {
         coverImage.loadImage(restaurant.featuredImage)
         restaurantNameTextView.text = restaurant.name
         materialRatingBar.rating = restaurant.userRating!!.aggregateRating!!.toFloat()
-        votesNumberTextView.text = getString(R.string.votes_number).format(restaurant.userRating!!.votes!!.toInt())
+        votesNumberTextView.text =
+            getString(R.string.votes_number).format(restaurant.userRating!!.votes!!.toInt())
 
         initializeRecycler(restaurant)
     }
@@ -91,7 +90,8 @@ class RestaurantsActivity : BaseActivity() {
         //2. prepare reviews section
         restaurant.allReviews?.let {
             dataList.add(ResSectionTitle(R.string.restaurant_reviews_section_title))
-            it.reviews?.forEach { dataList.add(ResReview(it)) } }
+            it.reviews?.forEach { dataList.add(ResReview(it)) }
+        }
 
         //3. TODO add more sections ...
 
@@ -105,12 +105,11 @@ class RestaurantsActivity : BaseActivity() {
     inner class LoadingLiveDataObserver : Observer<Boolean> {
 
         override fun onChanged(loading: Boolean) {
-            if(loading){
+            if (loading) {
                 shimmer_layout.startShimmer()
                 shimmer_Scroll.show()
                 resInfoShimmerLayout.startShimmerAnimation()
-            }
-            else{
+            } else {
                 shimmer_Scroll.hide()
                 shimmer_layout.stopShimmer()
                 resInfoShimmerLayout.stopShimmerAnimation()

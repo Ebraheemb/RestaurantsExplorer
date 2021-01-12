@@ -6,14 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.android.material.appbar.AppBarLayout
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.appbarLayout
 import kotlinx.android.synthetic.main.fragment_home.selectedCityIcon
@@ -29,26 +30,21 @@ import me.ebraheem.restaurants.ui.main.fragments.home.restaurant_marker_bottom_s
 import me.ebraheem.restaurants.ui.restaurant.RestaurantsActivity
 import me.ebraheem.restaurants.utils.CustomMarkerMakerUtils
 import me.ebraheem.restaurants.utils.ScreenUtils
-import me.ebraheem.restaurants.viewmodels.ViewModelProviderFactory
-import javax.inject.Inject
 import kotlin.math.abs
 
-
+@AndroidEntryPoint
 class HomeFragment : HomeBaseFragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
     RestaurantMarkerDialogFragment.RestaurantMarkerInfoDialogListener {
 
 
     private var drawnMarkers: MutableList<Marker>? = null
-    private lateinit var viewModel: HomeFragmentViewModel
+    private val viewModel: HomeFragmentViewModel by viewModels()
     private var mMap: GoogleMap? = null
     private var locationDetails: LocationDetails? = null
     private var homePageData: HomePageData? = null
     private val homeAdapter by lazy {
         HomeAdapter()
     }
-
-    @Inject
-    lateinit var providerFactory: ViewModelProviderFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,9 +57,6 @@ class HomeFragment : HomeBaseFragment(), OnMapReadyCallback, GoogleMap.OnMarkerC
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProviders
-            .of(this, providerFactory)
-            .get(HomeFragmentViewModel::class.java)
         viewModel.homePageLiveData.observe(this, HomePageLiveDataObserver())
         viewModel.loadingDataLiveData.observe(this, LoadingLiveDataObserver())
 
