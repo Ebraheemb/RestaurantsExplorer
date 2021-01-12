@@ -4,9 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 data class Restaurant(
 
-    @field:SerializedName("R")
-    var r: R_? = null,
-
     @field:SerializedName("apikey")
     var apikey: String? = null,
 

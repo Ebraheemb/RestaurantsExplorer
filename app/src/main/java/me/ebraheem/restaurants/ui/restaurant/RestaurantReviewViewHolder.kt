@@ -11,7 +11,8 @@ import me.ebraheem.restaurants.ui.base.BaseViewHolder
 class RestaurantReviewViewHolder(var binding: ItemRestaurantReviewBinding) : BaseViewHolder(binding.root) {
 
     fun bind(reviewWrapper : ReviewWrapper) {
-        binding.review = reviewWrapper.review
+
+       // binding.review = reviewWrapper.review[0]
     }
 
     companion object {

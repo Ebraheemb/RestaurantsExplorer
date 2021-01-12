@@ -2,6 +2,7 @@ package me.ebraheem.restaurants.data.network
 
 import io.reactivex.Observable
 import me.ebraheem.restaurants.data.model.*
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -22,6 +23,12 @@ interface Routes {
         @Query("entity_id") entityId: String,
         @Query("entity_type") entityType: String
     ): Observable<LocationDetails>
+
+    @GET("/api/v2.1/location_details")
+    fun locationDetails2(
+        @Query("entity_id") entityId: String,
+        @Query("entity_type") entityType: String
+    ): Call<LocationDetails>
 
     /**
      *  This route can be more filtered but for now I will use it in this way.

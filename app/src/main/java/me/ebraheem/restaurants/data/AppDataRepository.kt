@@ -92,6 +92,8 @@ class AppDataRepository(
                     }
                 }
                 it
+            }.doOnError {
+                Log.d("error",it.toString())
             }
 
         var searchSource = apiService.search(entityId, entityType)
@@ -116,6 +118,8 @@ class AppDataRepository(
                 }
 
                 it
+            }.doOnError {
+                Log.d("error",it.toString())
             }
 
 
