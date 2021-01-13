@@ -2,6 +2,7 @@ package me.ebraheem.restaurants.ui.main.fragments.home.restaurant_marker_bottom_
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +15,11 @@ import kotlinx.android.synthetic.main.fragment_restaurant_marker_dialog.view.*
 import kotlinx.android.synthetic.main.item_bottom_sheet_restaurant_info.*
 import me.ebraheem.restaurants.R
 import me.ebraheem.restaurants.data.model.Restaurant
+import me.ebraheem.restaurants.data.result.Result
 import me.ebraheem.restaurants.helpers.hide
 import me.ebraheem.restaurants.helpers.loadImage
 import me.ebraheem.restaurants.helpers.show
+import timber.log.Timber
 
 
 const val ARG_RESTAURANT_ID = "restaurant_id"
@@ -39,21 +42,28 @@ class RestaurantMarkerDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        restaurantId = requireArguments().getString(ARG_RESTAURANT_ID)
-        viewModel.restaurantLiveData.observe(this, Observer {
-            bindView(it)
-        })
-        viewModel.loadingDataLiveData.observe(this, Observer {
-            if(it){
-                shimmer_layout.show()
-                shimmer_layout.startShimmer()
-            }else{
-                shimmer_layout.hide()
-                shimmer_layout.stopShimmer()
-            }
+        restaurantId = requireArguments().getString(ARG_RESTAURANT_ID) ?: kotlin.run {
+            Timber.e("Restaurant id is null")
+            return
+        }
 
-        })
-        restaurantId?.let { viewModel.loadRestaurant(it) }
+        viewModel.loadRestaurant(restaurantId!!).observe(this, { result ->
+          when(result){
+              is Result.Success -> {
+                  bindView(result.data)
+                  shimmer_layout.hide()
+                  shimmer_layout.stopShimmer()
+              }
+              is Result.Error -> {
+                  shimmer_layout.hide()
+                  shimmer_layout.stopShimmer()
+              }
+              is Result.Loading -> {
+                  shimmer_layout.show()
+                  shimmer_layout.startShimmer()
+              }
+          }
+      })
     }
 
     private fun bindView(restaurant: Restaurant) {

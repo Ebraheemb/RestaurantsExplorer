@@ -5,6 +5,7 @@ import dagger.hilt.android.HiltAndroidApp
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
+import timber.log.Timber
 
 
 @HiltAndroidApp
@@ -30,6 +31,10 @@ class App : Application(){
                 )
                 .build()
         )
+
+        if (BuildConfig.DEBUG){
+            Timber.plant(Timber.DebugTree())
+        }
 
     }
 

@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.jakewharton.rxbinding3.widget.textChanges
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,14 +13,15 @@ import me.ebraheem.restaurants.data.model.City
 import me.ebraheem.restaurants.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_search_city.*
 import me.ebraheem.restaurants.data.preferences.AppSharedPreferences
+import me.ebraheem.restaurants.data.result.Result
 import me.ebraheem.restaurants.helpers.GridCitiesItemDecoration
 import me.ebraheem.restaurants.helpers.hide
 import me.ebraheem.restaurants.helpers.plus
 import me.ebraheem.restaurants.helpers.show
 import me.ebraheem.restaurants.ui.search_city.city_details_dialog.CityDetailsDialogFragment
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class SearchCityActivity : BaseActivity(), OnCityClickListener, CityDetailsDialogFragment.Listener {
@@ -31,20 +30,40 @@ class SearchCityActivity : BaseActivity(), OnCityClickListener, CityDetailsDialo
     lateinit var prefs: AppSharedPreferences
 
     private val viewModel: SearchCityViewModel by viewModels()
-    private lateinit var citiesAdapter: SearchCityAdapter
+
+    private var citiesAdapter = SearchCityAdapter(this)
+
     private var currentSearchQuery: String? = null
-    var compositeDisposable: CompositeDisposable = CompositeDisposable()
+
+    private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_city)
         setFinishOnTouchOutside(true)
 
-        viewModel.citiesListLiveData.observe(this, CityListObserver())
-        viewModel.loadingDataLiveData.observe(this, LoadingObserver())
+        viewModel.citiesListLiveData.observe(this, { result ->
+            when (result) {
+                is Result.Success -> {
+                    swipeRefreshLayout.isRefreshing = false
+                    citiesAdapter.submitList(result.data)
+                    if (result.data.isEmpty())
+                        noResusltTextView.show()
+                    else
+                        noResusltTextView.hide()
+                }
+                is Result.Error -> {
+                    Timber.e(result.exception)
+                    swipeRefreshLayout.isRefreshing = true
+                }
+                is Result.Loading -> {
+                    swipeRefreshLayout.isRefreshing = true
+                }
+            }
+        })
 
-        initSearch()
         initRecyclerView()
+        initSearch()
 
         swipeRefreshLayout.setOnRefreshListener {
             search()
@@ -52,17 +71,13 @@ class SearchCityActivity : BaseActivity(), OnCityClickListener, CityDetailsDialo
     }
 
     private fun initRecyclerView() {
-        citiesAdapter = SearchCityAdapter(this)
-        var decoration = GridCitiesItemDecoration(resources.getDimensionPixelSize(R.dimen.grid_search_city_item_margin))
         recyclerView.apply {
             adapter = citiesAdapter
-            addItemDecoration(decoration)
+            addItemDecoration(GridCitiesItemDecoration(resources.getDimensionPixelSize(R.dimen.grid_search_city_item_margin)))
         }
-
     }
 
     private fun initSearch() {
-
         compositeDisposable + searchEditText.textChanges()
             .skipInitialValue()
             .debounce(500, TimeUnit.MILLISECONDS)
@@ -74,11 +89,10 @@ class SearchCityActivity : BaseActivity(), OnCityClickListener, CityDetailsDialo
                     search()
                 }
             }
-
     }
 
     private fun search() {
-        //after the first search stay hide this
+        //after the first search keep hiding this
         startSearchTextView.hide()
 
         currentSearchQuery?.let {
@@ -86,10 +100,7 @@ class SearchCityActivity : BaseActivity(), OnCityClickListener, CityDetailsDialo
         }
     }
 
-
     override fun onCityClick(city: City) {
-
-//
 //        var dialogFragment = CityDetailsDialogFragment.newInstance(city)
 //        dialogFragment.show(supportFragmentManager, "CityDetailsDialogFragment")
 
@@ -100,13 +111,10 @@ class SearchCityActivity : BaseActivity(), OnCityClickListener, CityDetailsDialo
         finishWithResultOk(city)
     }
 
-
     private fun finishWithResultOk(city: City) {
-
-        var resultIntent = Intent().putExtra(EXTRA_CITY, city)
+        val resultIntent = Intent().putExtra(EXTRA_CITY, city)
         setResult(Activity.RESULT_OK, resultIntent)
         finish()
-
     }
 
     override fun onDestroy() {
@@ -114,43 +122,12 @@ class SearchCityActivity : BaseActivity(), OnCityClickListener, CityDetailsDialo
         compositeDisposable.dispose()
     }
 
-    override fun onAccept(city: City) {
-
-    }
-
-
-    /**
-     * CityListObserver
-     */
-    inner class CityListObserver : Observer<List<City>> {
-
-        override fun onChanged(cities: List<City>?) {
-            citiesAdapter.submitList(cities)
-            if (cities!!.isEmpty())
-                noResusltTextView.show()
-            else
-                noResusltTextView.hide()
-        }
-
-    }
-
-    /**
-     * LoadingObserver
-     */
-    inner class LoadingObserver : Observer<Boolean> {
-
-        override fun onChanged(loading: Boolean) {
-            swipeRefreshLayout.isRefreshing = loading
-        }
-
-    }
+    override fun onAccept(city: City) {}
 
     companion object {
-
         const val EXTRA_CITY = "extra_city"
         fun getNewIntent(activity: Activity): Intent {
             return Intent(activity, SearchCityActivity::class.java)
         }
     }
-
 }

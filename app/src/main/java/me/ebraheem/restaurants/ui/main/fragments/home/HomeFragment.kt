@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.layout_shimmer_loading_page.*
 import me.ebraheem.restaurants.R
 import me.ebraheem.restaurants.data.model.*
 import me.ebraheem.restaurants.data.network.ENTITY_TYPE_CITY
+import me.ebraheem.restaurants.data.result.Result
 import me.ebraheem.restaurants.helpers.hide
 import me.ebraheem.restaurants.helpers.shortToast
 import me.ebraheem.restaurants.helpers.show
@@ -58,8 +59,6 @@ class HomeFragment : HomeBaseFragment(), OnMapReadyCallback, GoogleMap.OnMarkerC
         super.onCreate(savedInstanceState)
 
         viewModel.homePageLiveData.observe(this, HomePageLiveDataObserver())
-        viewModel.loadingDataLiveData.observe(this, LoadingLiveDataObserver())
-
     }
 
     override fun onNewCitySelected(city: City) {
@@ -287,39 +286,37 @@ class HomeFragment : HomeBaseFragment(), OnMapReadyCallback, GoogleMap.OnMarkerC
         }
     }
 
-    inner class HomePageLiveDataObserver : Observer<HomePageData> {
+    inner class HomePageLiveDataObserver : Observer<Result<HomePageData>> {
 
-        override fun onChanged(homePageData: HomePageData) {
-            this@HomeFragment.homePageData = homePageData
-            this@HomeFragment.locationDetails = homePageData.locationDetails
-            initAdapter()
+        override fun onChanged(result: Result<HomePageData>) {
+            when(result){
+                is Result.Success ->{
+                    shimmer_Scroll.hide()
+                    shimmer_layout.stopShimmer()
 
-            if (canShowSwitchToMapButton())
-                switchToMapButton.show()
-        }
+                    this@HomeFragment.homePageData = result.data
+                    this@HomeFragment.locationDetails = result.data.locationDetails
+                    initAdapter()
 
-    }
+                    if (canShowSwitchToMapButton())
+                        switchToMapButton.show()
+                }
+                is Result.Error -> {
+                    shimmer_Scroll.hide()
+                    shimmer_layout.stopShimmer()
+                }
 
-    inner class LoadingLiveDataObserver : Observer<Boolean> {
-
-        override fun onChanged(loading: Boolean) {
-            if (loading) {
-                shimmer_Scroll.show()
-                shimmer_layout.startShimmer()
-            } else {
-                shimmer_Scroll.hide()
-                shimmer_layout.stopShimmer()
+                is Result.Loading -> {
+                    shimmer_Scroll.show()
+                    shimmer_layout.startShimmer()
+                }
             }
         }
-
     }
-
 
     companion object {
-
         fun newInstance() = HomeFragment()
     }
-
 }
 
 
