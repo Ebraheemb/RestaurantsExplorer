@@ -5,7 +5,6 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProviders
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import me.ebraheem.restaurants.R

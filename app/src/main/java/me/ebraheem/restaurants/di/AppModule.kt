@@ -8,6 +8,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import me.ebraheem.restaurants.App
 import me.ebraheem.restaurants.data.AppDataRepository
 import me.ebraheem.restaurants.data.DataRepository
@@ -46,5 +49,12 @@ class AppModule {
     fun provideGson(): Gson = GsonBuilder()
         .setLenient()
         .create()
+
+    @ApplicationScope
+    @Singleton
+    @Provides
+    fun providesApplicationScope(
+        @DefaultDispatcher defaultDispatcher: CoroutineDispatcher
+    ): CoroutineScope = CoroutineScope(SupervisorJob() + defaultDispatcher)
 
 }

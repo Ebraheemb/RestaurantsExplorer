@@ -39,6 +39,6 @@ data class LocationDetails(
     var numRestaurant: Long = 0,
 
     @field:SerializedName("best_rated_restaurant")
-    var bestRatedRestaurant: List<RestaurantWrapper>? = null
+    var bestRatedRestaurant: List<RestaurantWrapper> = listOf()
 
 )

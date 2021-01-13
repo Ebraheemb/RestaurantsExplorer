@@ -8,10 +8,10 @@ data class Restaurant(
     var apikey: String? = null,
 
     @field:SerializedName("id")
-    var id: String? = null,
+    var id: String = "",
 
     @field:SerializedName("name")
-    var name: String? = null,
+    var name: String = "",
 
     @field:SerializedName("url")
     var url: String? = null,
@@ -110,7 +110,7 @@ data class Restaurant(
     var phoneNumbers: String? = null,
 
     @field:SerializedName("all_reviews")
-    var allReviews: AllReviews? = null,
+    var allReviews: AllReviews = AllReviews(),
 
     @field:SerializedName("establishment")
     var establishment: List<Any>? = null

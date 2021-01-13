@@ -3,21 +3,15 @@ package me.ebraheem.restaurants.ui.restaurant
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import me.ebraheem.restaurants.R
-import me.ebraheem.restaurants.data.model.ReviewWrapper
+import me.ebraheem.restaurants.data.model.Review
 import me.ebraheem.restaurants.databinding.ItemRestaurantReviewBinding
 import me.ebraheem.restaurants.ui.base.BaseViewHolder
 
 
 class RestaurantReviewViewHolder(var binding: ItemRestaurantReviewBinding) : BaseViewHolder(binding.root) {
 
-    fun bind(reviewWrapper : ReviewWrapper) {
-
-        reviewWrapper.review?.let {
-            if (it.isNotEmpty()){
-                binding.review = it[0]
-            }
-        }
-
+    fun bind(review: Review) {
+        binding.review = review
     }
 
     companion object {

@@ -121,9 +121,14 @@ dependencies {
     //Google maps
 
 
+    //https://developer.android.com/reference/kotlin/androidx/lifecycle/package-summary#(kotlinx.coroutines.flow.Flow).asLiveData(kotlin.coroutines.CoroutineContext,%20kotlin.Long)
     def lifecycle_version = "2.2.0"
-    // ViewModel and LiveData
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+//    // ViewModel and LiveData
+//    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
     /**
     def room_version = "2.2.0-beta01" // 2.1.0 for latest stable version
@@ -144,5 +149,10 @@ dependencies {
     //maybe will use it
     implementation 'jp.wasabeef:glide-transformations:4.0.0'
 
+    //coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2"
 
+    //logs
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }

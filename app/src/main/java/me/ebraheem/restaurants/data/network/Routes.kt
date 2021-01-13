@@ -3,6 +3,7 @@ package me.ebraheem.restaurants.data.network
 import io.reactivex.Observable
 import me.ebraheem.restaurants.data.model.*
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -11,24 +12,17 @@ const val ENTITY_TYPE_CITY = "city"
 
 interface Routes {
 
-
     @GET("/api/v2.1/cities")
-    fun cities(@Query("q") q: String): Observable<LocationGeneralResponse<City>>
+    suspend fun cities(@Query("q") q: String): Response<LocationGeneralResponse<City>>
 
     @GET("/api/v2.1/locations")
     fun locations(@Query("q") q: String): Observable<LocationGeneralResponse<Location>>
 
     @GET("/api/v2.1/location_details")
-    fun locationDetails(
+    suspend fun locationDetails(
         @Query("entity_id") entityId: String,
         @Query("entity_type") entityType: String
-    ): Observable<LocationDetails>
-
-    @GET("/api/v2.1/location_details")
-    fun locationDetails2(
-        @Query("entity_id") entityId: String,
-        @Query("entity_type") entityType: String
-    ): Call<LocationDetails>
+    ): Response<LocationDetails>
 
     /**
      *  This route can be more filtered but for now I will use it in this way.
@@ -44,18 +38,18 @@ interface Routes {
      *
      */
     @GET("/api/v2.1/search")
-    fun search(
+    suspend fun search(
         @Query("entity_id") entityId: String,
         @Query("entity_type") entityType: String
-    ): Observable<SearchResponse>
-
+    ): Response<SearchResponse>
 
     @GET("/api/v2.1/restaurant")
-    fun restaurant(
+    suspend fun restaurant(
         @Query("res_id") resId: String
-    ): Observable<Restaurant>
+    ): Response<Restaurant>
 
-
-
-
+    @GET("/api/v2.1/reviews")
+    suspend fun restaurantReviews(
+        @Query("res_id") resId: String
+    ): Response<RestaurantReviewsResponse>
 }

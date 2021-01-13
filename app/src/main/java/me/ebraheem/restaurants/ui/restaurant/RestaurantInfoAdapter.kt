@@ -23,7 +23,7 @@ sealed class RestaurantInfoAdapterData(var type : Int)
 data class ResPhotos(var photos: List<PhotoWrapper>) : RestaurantInfoAdapterData(TYPE_PHOTOS)
 data class ResCuisines(var topCuisines: List<String>) : RestaurantInfoAdapterData(TYPE_CUISINES)
 data class ResSectionTitle(@StringRes var stringId : Int) : RestaurantInfoAdapterData(TYPE_SECTION_TITLE)
-data class ResReview(var review : ReviewWrapper) : RestaurantInfoAdapterData(TYPE_REVIEW)
+data class ResReview(var review : Review) : RestaurantInfoAdapterData(TYPE_REVIEW)
 
 
 class RestaurantInfoAdapter(var dataList: MutableList<RestaurantInfoAdapterData>) : RecyclerView.Adapter<BaseViewHolder>() {
